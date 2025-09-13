@@ -20,6 +20,4 @@ jobs:
 
       - name: Code static s3
         run: |
-            aws aws s3 sync . s3://alpha-beta-demo-jhashist/ \
-            --exclude "*" \
-            --include "index.html"
+            aws s3 sync . s3://alpha-beta-demo-jhashist --exclude "*"  --include "index.html"
