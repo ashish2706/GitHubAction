@@ -1,0 +1,4 @@
+name: Deploy static Webiste to S3 and attach cloudfront which has s3 as origin. 
+
+on:
+ 
