@@ -1,4 +1,33 @@
-name: Deploy static Webiste to S3 and attach cloudfront which has s3 as origin. 
 
+name: Create Cloudfront and Deploy static website to S3
+
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read 
 on:
- 
+  push:
+    branches:
+      - main # Runs pipeline when code is pushed to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1 Checkout Code 
+       - name: Checkout repository 
+         uses: actions/checkout@v3
+
+      # Step 2: Configure AWS credentials
+       - name: Configure AWS credentials
+         uses: aws-actions/configure-aws-credentials@v4
+         with:
+            role-to-assume: arn:aws:iam::612117410675:role/github-role
+            aws-region: us-east-1
+
+      
+      # Step 3: Sync files to S3
+
+       - name: Code static s3
+         run: |
+            aws s3 sync . s3://buckethitohai --exclude "*"  --include "index.html"
